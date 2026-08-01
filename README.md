@@ -1,0 +1,63 @@
+# OS Basecamp
+
+
+Foundational labs for CSCI 3753 (Operating Systems, undergraduate) at CU
+Boulder. Learn to observe, model, and reason about running systems — the
+groundwork you need before any serious climb, and before you can direct an
+LLM at systems problems with judgment instead of hope.
+
+Basecamp prepares students for the climb.
+[KernelLens](https://github.com/cu-cs-os-courses/kernel-lens) lets them
+inspect the terrain.
+
+## The environment
+
+Every lab runs in a local, reproducible VM: QEMU + a pinned Linux kernel +
+a Debian rootfs, built by [`env/`](env/README.md) on your own laptop
+(macOS or Linux). No VDI, no shared servers, no waiting for IT.
+
+```sh
+cd env
+make setup && make images && make smoke
+```
+
+Because the environment is pinned, behavior is identical on every machine
+— yours, your classmates', and the graders'.
+
+## The route
+
+| Camp | Topic |
+|---|---|
+| [`00-getting-started/`](00-getting-started/) | Basecamp 0: Learning to See a Running System |
+| `01-processes/` | (planned) |
+| `02-scheduling/` | (planned) |
+| `03-concurrency/` | (planned) |
+| `04-virtual-memory/` | (planned) |
+| `05-storage-and-io/` | (planned) |
+
+Each lab directory contains:
+
+- `README.md` — the write-up
+- `submit/` — the files you edit and push; this is your submission
+- `check/` — the checks, which run inside the VM
+
+## Checking your work
+
+```sh
+make check LAB=00-getting-started
+```
+
+This boots the VM headless, runs the lab's checks against your `submit/`
+directory inside it, and prints PASS/FAIL per item. Grading re-runs the
+**same checks from the instructor's copy** against your `submit/` — so a
+local pass is a grading pass, and editing `check/` in your own repo does
+nothing.
+
+## Repository layout
+
+- `env/` — reference VM environment, vendored from
+  [kernel-lens](https://github.com/cu-cs-os-courses/kernel-lens)
+  (see `env/UPSTREAM`); Apache-2.0
+- `scripts/check-lab.sh` — harness: boot headless, run a lab's checks via
+  the autorun channel, report PASS/FAIL
+- `NN-*/` — the labs

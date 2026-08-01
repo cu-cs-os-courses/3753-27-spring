@@ -1,0 +1,10 @@
+Vendored from cu-cs-os-courses/kernel-lens (env/ subtree), Apache-2.0,
+Copyright 2026 Yueqi Chen <yueqi.chen@colorado.edu>.
+
+Upstream commit: eedb58f879d788f14c18d5cb0de82de71e314323
+
+Files are kept byte-identical to upstream (including kl-* / kernel-lens
+naming) so the environment stays interchangeable with the tested one and
+the Docker build cache (kernel-lens-cache volume) is shared between the
+two courses. To pull upstream fixes: rsync from kernel-lens/env/ again
+(excluding dist/, src/, cache/) and update the commit hash above.

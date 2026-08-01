@@ -1,0 +1,5 @@
+.DS_Store
+env/dist/
+env/src/
+env/cache/
+ta/work/
