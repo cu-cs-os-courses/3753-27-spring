@@ -8,6 +8,31 @@ the `/proc` filesystem.
 There is no VDI, no shared server, and nothing to wait for: the entire
 environment builds and runs on your laptop.
 
+**What you need before starting:**
+
+- a laptop running macOS (Apple Silicon or Intel) or Linux, with about
+  **20 GB of free disk** (kernel build cache + a 4 GB disk image + Docker
+  images) and 8 GB of RAM;
+- on macOS: [Homebrew](https://brew.sh) installed (`make setup` uses it to
+  install QEMU and Docker);
+- a [GitHub](https://github.com) account (Part 0).
+
+## Part 0 — Get your repository
+
+Accept the **GitHub Classroom invitation link posted on Canvas**. It
+creates a private repository owned by you — your personal copy of the
+course tree — and that repository is what the TAs grade. Clone it:
+
+```sh
+git clone <the URL shown on your repository's green "Code" button>
+cd <your-repo>
+```
+
+Everything below happens inside this clone. Do **not** clone the course
+repository itself — work you push anywhere other than your Classroom
+repository is invisible to grading.
+
+
 ## Part 1 — Set up the environment
 
 Follow [`env/README.md`](../env/README.md):
@@ -50,6 +75,29 @@ make check LAB=00-getting-started
 This boots the VM headless, runs your `observe.sh` inside it, and prints
 PASS/FAIL per item. The TAs grade by running **exactly the same checks** on
 your submission — if it passes locally, it passes grading.
+
+### If a check fails
+
+The PASS/FAIL lines name the check, not what your script printed — so go
+look at the output yourself, in a live VM. From the repository root:
+
+```sh
+SHARE=$PWD/00-getting-started/submit env/run.sh
+```
+
+Your `submit/` directory appears inside the guest at `/share`. Run your
+script there and compare its output against the format in the file header:
+
+```sh
+bash /share/observe.sh
+```
+
+Edit on the host, re-run in the guest — the share is live, no reboot
+needed — then confirm with `make check` when the output looks right.
+
+A failing `make check` also prints `(artifacts kept at …)`. That directory
+holds `result.txt` (the raw check output) and `console.log` (the VM's boot
+log — the place to look if the VM never came up at all).
 
 ## Submit
 
