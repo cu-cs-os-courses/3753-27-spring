@@ -33,7 +33,7 @@ Because the environment is pinned, behavior is identical on every machine
 | [`02-scheduling/`](02-scheduling/) | Basecamp 2: Sharing the CPU |
 | [`03-concurrency/`](03-concurrency/) | Basecamp 3: The Trouble with Threads |
 | [`04-virtual-memory/`](04-virtual-memory/) | Basecamp 4: Pages, Faults, and the Art of Eviction |
-| `05-storage-and-io/` | (planned) |
+| [`05-storage-and-io/`](05-storage-and-io/) | Basecamp 5: Everything Is a File |
 
 Each lab directory contains:
 

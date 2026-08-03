@@ -42,6 +42,20 @@ trap '[ -n "$QEMU_PID" ] && kill "$QEMU_PID" 2>/dev/null || true; echo "(artifac
 cp -R "$LAB_DIR/check" "$WORK/check"
 cp -R "$SUBMIT_DIR" "$WORK/submit"
 
+# Optional host-side prep: labs that need work the guest can't do (e.g.
+# lab 5's kernel-module build in the env's Docker container) provide
+# check/host-prep.sh. It runs on the HOST, after the submission is
+# staged and before boot. A nonzero exit is an environment error, not a
+# grading result (submission problems must surface as guest-side FAILs).
+if [ -x "$WORK/check/host-prep.sh" ]; then
+    echo "==> [$LAB_NAME] host-prep"
+    if ! "$WORK/check/host-prep.sh" "$WORK" "$REPO_DIR"; then
+        echo "ERROR: host-prep failed (environment problem — see output above)"
+        echo "RESULT lab=$LAB_NAME status=error passes=0 fails=0"
+        exit 2
+    fi
+fi
+
 cat > "$WORK/autorun.sh" <<'EOF'
 #!/bin/bash
 bash /share/check/guest-check.sh /share/submit > /share/result.txt 2>&1
