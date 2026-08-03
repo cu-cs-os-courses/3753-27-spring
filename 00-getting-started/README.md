@@ -30,9 +30,14 @@ ls /proc/1/
 cat /proc/meminfo | head
 ```
 
-Then edit [`submit/observe.sh`](submit/observe.sh) so it reports four facts
+Then edit [`submit/observe.sh`](submit/observe.sh) so it reports eight facts
 about the running system, reading **only** `/proc` (no `uname`, no `nproc`
-— find where the kernel exposes these values directly).
+— find where the kernel exposes these values directly). The eight facts are
+chosen to make you look at four different faces of `/proc`: system-wide
+constants (kernel release, CPUs, memory), the boot command line (compare it
+with `env/run.sh`), per-process views (`/proc/<pid>/`, and `/proc/self` —
+which answers "who is asking?"), and live counters that change every time
+you look (`/proc/stat`).
 
 ## Check your work
 
@@ -48,6 +53,12 @@ your submission — if it passes locally, it passes grading.
 
 ## Submit
 
-Commit and push `submit/observe.sh`, plus a short `submit/report.md`:
-what you learned, what was confusing, and one thing you found in `/proc`
-that surprised you.
+Commit and push `submit/observe.sh`, plus a short `submit/report.md`
+answering:
+
+1. Run `observe.sh` twice. Which values changed, and why? (`SELF_PID`
+   deserves a sentence of its own: what exactly is `/proc/self`?)
+2. `/proc/meminfo` reports both `MemFree` and `MemAvailable`, and they
+   disagree. What is the difference, and which one should a program that
+   wants to know "can I allocate this much?" look at?
+3. One thing you found in `/proc` that surprised you.

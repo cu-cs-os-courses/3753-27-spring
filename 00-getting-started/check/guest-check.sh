@@ -25,6 +25,7 @@ fi
 code="$(sed 's/#.*//' "$SUBMIT/observe.sh")"
 r no-uname        sh -c "! printf '%s' \"\$1\" | grep -qw uname" _ "$code"
 r no-nproc        sh -c "! printf '%s' \"\$1\" | grep -qw nproc" _ "$code"
+r uses-proc-self  sh -c "printf '%s' \"\$1\" | grep -q /proc/self" _ "$code"
 
 out="$(bash "$SUBMIT/observe.sh" 2>/dev/null)"
 get() { printf '%s\n' "$out" | sed -n "s/^$1=//p" | head -1; }
@@ -32,10 +33,22 @@ kr="$(get KERNEL_RELEASE)"
 np="$(get NPROC)"
 p1="$(get PID1_COMM)"
 mt="$(get MEM_TOTAL_KB)"
+bc="$(get BOOT_CMDLINE)"
+sp="$(get SELF_PID)"
+ct="$(get CTXT)"
+np2="$(get NUM_PROCS)"
 
 r kernel-release  test "x$kr" = "x$(uname -r)"
 r nproc           test "x$np" = "x$(nproc)"
 r pid1-comm       test "x$p1" = "x$(cat /proc/1/comm)"
 r mem-total       test "$mt" -gt 0
+r boot-cmdline    test "x$bc" = "x$(cat /proc/cmdline)"
+# A real PID, and not PID 1; the uses-proc-self check above rules out $$.
+r self-pid        test "$sp" -ge 2
+# ctxt is monotonic: the submission's reading must be positive and no
+# larger than a reading taken now.
+r ctxt            sh -c "test \"\$1\" -gt 0 && test \"\$1\" -le \"\$(awk '/^ctxt /{print \$2}' /proc/stat)\"" _ "$ct"
+# Loose floor: even a minimal guest has dozens of PIDs (kernel threads).
+r num-procs       test "$np2" -ge 10
 
 exit 0
