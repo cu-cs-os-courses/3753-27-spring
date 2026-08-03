@@ -31,7 +31,7 @@ Because the environment is pinned, behavior is identical on every machine
 | [`00-getting-started/`](00-getting-started/) | Basecamp 0: Learning to See a Running System |
 | [`01-processes/`](01-processes/) | Basecamp 1: The Life and Times of a Process |
 | [`02-scheduling/`](02-scheduling/) | Basecamp 2: Sharing the CPU |
-| `03-concurrency/` | (planned) |
+| [`03-concurrency/`](03-concurrency/) | Basecamp 3: The Trouble with Threads |
 | `04-virtual-memory/` | (planned) |
 | `05-storage-and-io/` | (planned) |
 
