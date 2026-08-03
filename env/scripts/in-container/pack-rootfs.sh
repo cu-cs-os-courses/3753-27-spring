@@ -19,8 +19,8 @@ tar -C "$ROOT" -xf -
 # `docker build` RUN steps, so writes there never reach the image — set
 # them here instead. 10.0.2.3 is QEMU user-mode net's DNS proxy.
 echo "==> Post-extract fixups"
-echo kernel-lens > "$ROOT/etc/hostname"
-printf '127.0.0.1 localhost\n127.0.1.1 kernel-lens\n' > "$ROOT/etc/hosts"
+echo basecamp > "$ROOT/etc/hostname"
+printf '127.0.0.1 localhost\n127.0.1.1 basecamp\n' > "$ROOT/etc/hosts"
 echo 'nameserver 10.0.2.3' > "$ROOT/etc/resolv.conf"
 rm -f "$ROOT/.dockerenv"
 

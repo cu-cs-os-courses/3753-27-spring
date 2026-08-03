@@ -7,4 +7,10 @@ Files are kept byte-identical to upstream (including kl-* / kernel-lens
 naming) so the environment stays interchangeable with the tested one and
 the Docker build cache (kernel-lens-cache volume) is shared between the
 two courses. To pull upstream fixes: rsync from kernel-lens/env/ again
-(excluding dist/, src/, cache/) and update the commit hash above.
+(excluding dist/, src/, cache/), update the commit hash above, and
+re-apply the local delta below.
+
+Local delta (intentional, re-apply after any rsync):
+- scripts/in-container/pack-rootfs.sh: guest hostname is "basecamp"
+  (/etc/hostname and /etc/hosts), not "kernel-lens". Cosmetic only —
+  nothing mounts by label or resolves the guest hostname.
