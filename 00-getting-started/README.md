@@ -47,12 +47,15 @@ make run        # boot an interactive VM (root auto-login; exit: Ctrl-a x)
 
 ## Part 2 — Observe the system
 
-Inside the VM, explore `/proc` — the kernel's window onto itself:
+Inside the VM, explore `/proc` — the kernel's window onto itself. Start
+with the map, then look around:
 
 ```sh
+ls /proc                     # the whole window: files, and one directory per process
 cat /proc/version
 ls /proc/1/
 cat /proc/meminfo | head
+grep . /proc/sys/kernel/*    # everything here greps like an ordinary file
 ```
 
 Then edit [`submit/observe.sh`](submit/observe.sh) so it reports eight facts
