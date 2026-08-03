@@ -35,7 +35,7 @@ repository is invisible to grading.
 
 ## Part 1 — Set up the environment
 
-Follow [`env/README.md`](../env/README.md):
+Follow [`env/README.md`](../../env/README.md):
 
 ```sh
 cd env
@@ -85,7 +85,7 @@ The PASS/FAIL lines name the check, not what your script printed — so go
 look at the output yourself, in a live VM. From the repository root:
 
 ```sh
-SHARE=$PWD/00-getting-started/submit env/run.sh
+SHARE=$PWD/labs/00-getting-started/submit env/run.sh
 ```
 
 Your `submit/` directory appears inside the guest at `/share`. Run your

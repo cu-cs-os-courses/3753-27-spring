@@ -7,7 +7,7 @@ groundwork you need before any serious climb, and before you can direct an
 LLM at systems problems with judgment instead of hope.
 
 Basecamp prepares students for the climb.
-[KernelLens](https://github.com/cu-cs-os-courses/kernel-lens) lets them
+[kernel-lens](https://github.com/cu-cs-os-courses/kernel-lens) lets them
 inspect the terrain.
 
 ## The environment
@@ -28,12 +28,12 @@ Because the environment is pinned, behavior is identical on every machine
 
 | Camp | Topic |
 |---|---|
-| [`00-getting-started/`](00-getting-started/) | Basecamp 0: Learning to See a Running System |
-| [`01-processes/`](01-processes/) | Basecamp 1: The Life and Times of a Process |
-| [`02-scheduling/`](02-scheduling/) | Basecamp 2: Sharing the CPU |
-| [`03-concurrency/`](03-concurrency/) | Basecamp 3: The Trouble with Threads |
-| [`04-virtual-memory/`](04-virtual-memory/) | Basecamp 4: Pages, Faults, and the Art of Eviction |
-| [`05-storage-and-io/`](05-storage-and-io/) | Basecamp 5: Everything Is a File |
+| [`labs/00-getting-started/`](labs/00-getting-started/) | Basecamp 0: Learning to See a Running System |
+| [`labs/01-processes/`](labs/01-processes/) | Basecamp 1: The Life and Times of a Process |
+| [`labs/02-scheduling/`](labs/02-scheduling/) | Basecamp 2: Sharing the CPU |
+| [`labs/03-concurrency/`](labs/03-concurrency/) | Basecamp 3: The Trouble with Threads |
+| [`labs/04-virtual-memory/`](labs/04-virtual-memory/) | Basecamp 4: Pages, Faults, and the Art of Eviction |
+| [`labs/05-storage-and-io/`](labs/05-storage-and-io/) | Basecamp 5: Everything Is a File |
 
 Each lab directory contains:
 
@@ -60,4 +60,4 @@ nothing.
   (see `env/UPSTREAM`); Apache-2.0
 - `scripts/check-lab.sh` — harness: boot headless, run a lab's checks via
   the autorun channel, report PASS/FAIL
-- `NN-*/` — the labs
+- `labs/NN-*/` — the labs
