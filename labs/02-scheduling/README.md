@@ -103,7 +103,7 @@ make check LAB=02-scheduling
 ```
 
 To iterate quickly, use the live-VM flow from labs 0–1
-(`SHARE=$PWD/02-scheduling/submit env/run.sh`, then work in `/share`).
+(`SHARE=$PWD/labs/02-scheduling/submit env/run.sh`, then work in `/share`).
 The checks compile your C with `-Wall -Werror`, verify your spinner
 actually pegs a CPU, and re-run both of your fairshare experiments with
 banded tolerances — a correct implementation passes with margin.
