@@ -153,7 +153,7 @@ From the repository root:
 make check LAB=04-virtual-memory
 ```
 
-Iterate live as always (`SHARE=$PWD/04-virtual-memory/submit
+Iterate live as always (`SHARE=$PWD/labs/04-virtual-memory/submit
 env/run.sh` — plus `SHARE` gives you the whole lab dir if you mount
 the lab root instead). The checks: touch.c's numbers, your pager
 compiling clean, running to completion, **bit-identical determinism**
