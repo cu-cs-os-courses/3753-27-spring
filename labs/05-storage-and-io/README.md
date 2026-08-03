@@ -70,7 +70,7 @@ iterating by hand:
 
 ```sh
 # build (host, repo root; result lands in mod/)
-mkdir -p mod && cp 05-storage-and-io/submit/char_driver.c mod/ \
+mkdir -p mod && cp labs/05-storage-and-io/submit/char_driver.c mod/ \
   && printf 'obj-m := char_driver.o\n' > mod/Makefile
 docker run --rm --platform linux/amd64 \
   -v kernel-lens-cache:/work/cache -v "$PWD/mod:/mod" kernel-lens-build \
