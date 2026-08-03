@@ -91,7 +91,7 @@ make check LAB=01-processes
 To iterate quickly, work inside a live VM (same flow as lab 0):
 
 ```sh
-SHARE=$PWD/01-processes/submit env/run.sh
+SHARE=$PWD/labs/01-processes/submit env/run.sh
 # inside the guest:
 cd /share
 gcc -Wall -Werror -o /tmp/spawn spawn.c && /tmp/spawn /bin/echo hi
