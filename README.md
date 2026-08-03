@@ -29,7 +29,7 @@ Because the environment is pinned, behavior is identical on every machine
 | Camp | Topic |
 |---|---|
 | [`00-getting-started/`](00-getting-started/) | Basecamp 0: Learning to See a Running System |
-| `01-processes/` | (planned) |
+| [`01-processes/`](01-processes/) | Basecamp 1: The Life and Times of a Process |
 | `02-scheduling/` | (planned) |
 | `03-concurrency/` | (planned) |
 | `04-virtual-memory/` | (planned) |
