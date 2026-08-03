@@ -146,7 +146,7 @@ make check LAB=03-concurrency
 ```
 
 Iterate live like the previous labs
-(`SHARE=$PWD/03-concurrency/submit env/run.sh`, then compile and run
+(`SHARE=$PWD/labs/03-concurrency/submit env/run.sh`, then compile and run
 in `/share`). Everything compiles with `-Wall -Werror -pthread`.
 
 ## Submit
