@@ -36,3 +36,11 @@ construction), show an access pattern where LRU's bet loses — where
 the page it evicts is precisely the one needed next.
 
 *(your answer)*
+
+## 5. MemFree or MemAvailable?
+
+`/proc/meminfo` reports both `MemFree` and `MemAvailable`, and they
+disagree. What is the difference, and which one should a program that
+wants to know "can I allocate this much?" look at?
+
+*(your answer)*
