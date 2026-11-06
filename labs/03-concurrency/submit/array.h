@@ -4,7 +4,7 @@
  * functions below need. It wants storage for ARRAY_SIZE char*
  * payloads, whatever bookkeeping your implementation uses, one
  * pthread_mutex_t, and two pthread_cond_t (space available / items
- * available). The stack worked-example in the README shows the shape.
+ * available). The stack worked example in the Lab03 walkthrough shows the shape.
  */
 #pragma once
 #include <pthread.h>

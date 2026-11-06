@@ -1,7 +1,7 @@
 /* Basecamp 3, Part 2 — the bounded buffer: implementation.
  *
  * Fill in the four functions. The contract lives in array.h and the
- * README; the short version: put blocks while full, get blocks while
+ * Lab03 walkthrough; the short version: put blocks while full, get blocks while
  * empty, both via condition variables (a waiting thread burns ~zero
  * CPU — one of the checks measures that), and the array stores the
  * pointers themselves.
