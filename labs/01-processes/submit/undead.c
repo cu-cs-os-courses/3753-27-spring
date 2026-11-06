@@ -16,7 +16,7 @@
  *          adopted it.
  *
  * Remember: flush stdout before any sleep — see the buffering warning
- * in the lab README.
+ * in the Lab01 walkthrough.
  *
  * Verify locally with:  make check LAB=01-processes
  */
