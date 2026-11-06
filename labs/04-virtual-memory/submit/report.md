@@ -18,7 +18,7 @@ why.
 
 *(your answer)*
 
-## 3. Is 100:1 honest?
+## 3. Is 100 to 1 honest?
 
 The simulator charges 100 ticks per swap against 1 tick per
 instruction. A real SSD read costs ~100 µs while an instruction costs
