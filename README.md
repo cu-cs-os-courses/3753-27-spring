@@ -1,10 +1,8 @@
 # CSCI 3753 Labs: OS Basecamp
 
 
-This repository holds the six labs of CSCI 3753 Operating Systems at the
-University of Colorado Boulder. Each lab is a "Basecamp": you
-observe a running Linux system, predict what it will do, and build small
-pieces that run on it.
+This repository holds the six labs (Basecamps) of CSCI 3753 Operating
+Systems at the University of Colorado Boulder.
 
 **Start here:** Step 0 of the
 [Lab00 walkthrough](https://cu-cs-os-courses.github.io/base-camp-academy/tutorials/lab00-getting-started.html).
