@@ -2,7 +2,7 @@
  *
  * Implement LRU eviction in pageit(). The simulator calls this every
  * tick; the API and the pentry struct are documented in
- * check/sim/simulator.h and the README. Note the static variables —
+ * check/sim/simulator.h and the Lab04 walkthrough. Note the static variables —
  * they preserve your pager's state between calls.
  *
  * Verify locally with:  make check LAB=04-virtual-memory

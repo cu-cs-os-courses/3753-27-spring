@@ -26,7 +26,7 @@ r touch-compiles  gcc -Wall -Werror -O2 -o /tmp/touch "$SUBMIT/touch.c"
 if [ -x /tmp/touch ]; then
     # Transparent huge pages would back the region with 2 MiB pages
     # (~544 faults instead of 16384) — disable for a clean one-fault-
-    # per-page measurement. The README tells students the same.
+    # per-page measurement. The Lab04 walkthrough tells students the same.
     echo never > /sys/kernel/mm/transparent_hugepage/enabled 2>/dev/null || true
     out="$(/tmp/touch 2>/dev/null)"
     get() { printf '%s\n' "$out" | sed -n "s/^$1=//p" | head -1; }
