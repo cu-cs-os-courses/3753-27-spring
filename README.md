@@ -30,6 +30,7 @@ Each lab's specification is its walkthrough page on the course site,
 <https://cu-cs-os-courses.github.io/base-camp-academy/>, together with the
 header comments of its `submit/` files. Each lab directory contains:
 
+- `README.md` — the link to the lab's walkthrough
 - `submit/` — the files you edit and push; this is your submission
 - `check/` — the checks, which run inside the VM
 
