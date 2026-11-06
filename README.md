@@ -4,11 +4,6 @@
 This repository holds the six labs (Basecamps) of CSCI 3753 Operating
 Systems at the University of Colorado Boulder.
 
-**Start here:** Step 0 of the
-[Lab00 walkthrough](https://cu-cs-os-courses.github.io/base-camp-academy/tutorials/lab00-getting-started.html).
-It sets up your own private copy of this repository, which is what we
-grade. Deadlines are on Canvas.
-
 ## The environment
 
 Every lab runs in a local VM on your own laptop (macOS or Linux): QEMU, a
