@@ -8,7 +8,7 @@ Systems at the University of Colorado Boulder.
 
 Every lab runs in a local VM on your own laptop (macOS or Linux): QEMU, a
 pinned Linux kernel, and a Debian root file system, built by
-[`env/`](env/README.md). There is no VDI and no shared server.
+[`env/`](env/README.md).
 
 ```sh
 cd env
