@@ -1,7 +1,7 @@
 #!/bin/bash
 # Basecamp 0 — Learning to See a Running System
 #
-# Fill in each TODO so this script prints the four lines below, with the
+# Fill in each TODO so this script prints the eight lines below, with the
 # values read from the /proc filesystem. Rules:
 #   - You may only READ files under /proc (cat, grep, awk, sed, etc.).
 #   - Do NOT call uname, nproc, or similar convenience tools — the point
@@ -25,7 +25,7 @@
 #     them. (You'll count kernel threads too — that's fine, and worth a
 #     look: compare with `ps aux`.)
 #
-# Verify locally with:  make check   (from the repository root)
+# Verify locally with:  make check LAB=00-getting-started   (from the repository root)
 
 echo "KERNEL_RELEASE=$(: TODO)"
 echo "NPROC=$(: TODO)"

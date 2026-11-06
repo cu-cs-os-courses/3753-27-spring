@@ -35,9 +35,10 @@ Because the environment is pinned, behavior is identical on every machine
 | [`labs/04-virtual-memory/`](labs/04-virtual-memory/) | Basecamp 4: Pages, Faults, and the Art of Eviction |
 | [`labs/05-storage-and-io/`](labs/05-storage-and-io/) | Basecamp 5: Everything Is a File |
 
-Each lab directory contains:
+Each lab's specification is its walkthrough page on the course site,
+<https://cu-cs-os-courses.github.io/base-camp-academy/>, together with the
+header comments of its `submit/` files. Each lab directory contains:
 
-- `README.md` — the write-up
 - `submit/` — the files you edit and push; this is your submission
 - `check/` — the checks, which run inside the VM
 
