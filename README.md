@@ -15,9 +15,6 @@ cd env
 make setup && make images && make smoke
 ```
 
-Because the environment is pinned, it behaves identically on every
-machine, including yours, your classmates', and the graders'.
-
 ## The route
 
 | Camp | Topic |
