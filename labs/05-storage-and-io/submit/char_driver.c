@@ -23,8 +23,8 @@
  *            clamp the result to [0, BUFFER_SIZE]; set and return it
  *
  * Build & load: `make check LAB=05-storage-and-io` builds the .ko on
- * the host automatically; the README shows the manual loop for
- * iterating.
+ * the host automatically; the Lab05 walkthrough shows the manual loop
+ * for iterating.
  */
 #include <linux/init.h>
 #include <linux/module.h>

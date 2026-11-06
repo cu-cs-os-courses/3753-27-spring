@@ -15,7 +15,7 @@ REPO="${2:?usage: host-prep.sh <workdir> <repodir>}"
 source "$REPO/env/config.sh"
 
 command -v docker >/dev/null || {
-    echo "host-prep: docker not found — lab 5's module build needs Docker running (see the lab README)"
+    echo "host-prep: docker not found — lab 5's module build needs Docker running (see the Lab05 walkthrough)"
     exit 1
 }
 docker image inspect "$DOCKER_IMAGE" >/dev/null 2>&1 || {
