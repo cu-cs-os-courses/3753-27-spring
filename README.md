@@ -1,28 +1,29 @@
-# OS Basecamp
+# CSCI 3753 Labs: OS Basecamp
 
 
-Foundational labs for CSCI 3753 (Operating Systems, undergraduate) at CU
-Boulder. Learn to observe, model, and reason about running systems — the
-groundwork you need before any serious climb, and before you can direct an
-LLM at systems problems with judgment instead of hope.
+This repository holds the six labs of CSCI 3753 Operating Systems at the
+University of Colorado Boulder. Each lab is a "Basecamp": you
+observe a running Linux system, predict what it will do, and build small
+pieces that run on it.
 
-Basecamp prepares students for the climb.
-[kernel-lens](https://github.com/cu-cs-os-courses/kernel-lens) lets them
-inspect the terrain.
+**Start here:** Step 0 of the
+[Lab00 walkthrough](https://cu-cs-os-courses.github.io/base-camp-academy/tutorials/lab00-getting-started.html).
+It sets up your own private copy of this repository, which is what we
+grade. Deadlines are on Canvas.
 
 ## The environment
 
-Every lab runs in a local, reproducible VM: QEMU + a pinned Linux kernel +
-a Debian rootfs, built by [`env/`](env/README.md) on your own laptop
-(macOS or Linux). No VDI, no shared servers, no waiting for IT.
+Every lab runs in a local VM on your own laptop (macOS or Linux): QEMU, a
+pinned Linux kernel, and a Debian root file system, built by
+[`env/`](env/README.md). There is no VDI and no shared server.
 
 ```sh
 cd env
 make setup && make images && make smoke
 ```
 
-Because the environment is pinned, behavior is identical on every machine
-— yours, your classmates', and the graders'.
+Because the environment is pinned, it behaves identically on every
+machine, including yours, your classmates', and the graders'.
 
 ## The route
 
@@ -56,9 +57,7 @@ nothing.
 
 ## Repository layout
 
-- `env/` — reference VM environment, vendored from
-  [kernel-lens](https://github.com/cu-cs-os-courses/kernel-lens)
-  (see `env/UPSTREAM`); Apache-2.0
+- `env/` — the VM environment (origin and license: `env/UPSTREAM`)
 - `scripts/check-lab.sh` — harness: boot headless, run a lab's checks via
   the autorun channel, report PASS/FAIL
 - `labs/NN-*/` — the labs
