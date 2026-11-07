@@ -24,13 +24,9 @@ r report-present  test -s "$SUBMIT/report.md"
 # --- Part 1: touch.c ---
 r touch-compiles  gcc -Wall -Werror -O2 -o /tmp/touch "$SUBMIT/touch.c"
 if [ -x /tmp/touch ]; then
-    # Transparent huge pages would back the region with 2 MiB pages
-    # (~544 faults instead of 16384) — disable for a clean one-fault-
-    # per-page measurement. The Lab04 walkthrough tells students the same.
-    echo never > /sys/kernel/mm/transparent_hugepage/enabled 2>/dev/null || true
     out="$(/tmp/touch 2>/dev/null)"
     get() { printf '%s\n' "$out" | sed -n "s/^$1=//p" | head -1; }
-    b="$(get RSS_KB_BEFORE)"; a="$(get RSS_KB_AFTER)"; m="$(get MINFLT_DELTA)"
+    b="$(get RSS_KB_BEFORE)"; a="$(get RSS_KB_AFTER)"; m="$(get FAULT_DELTA)"
     # 64 MiB = 65536 kB resident growth; 16384 pages faulted. Slack for
     # allocator/runtime noise.
     r touch-rss       sh -c "test -n \"\$1\" && test -n \"\$2\" && test \"\$1\" -ge 0 && test \$((\$2 - \$1)) -ge 60000" _ "$b" "$a"

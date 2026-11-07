@@ -1,8 +1,9 @@
 #include "simulator.h"
 
 /*
- * this is a very basic pageit() algorithm that only allows one process at a
- * time, and one page in memory at a time.
+ * this is a very basic pageit() algorithm, the baseline that pager-lru.c
+ * must beat. Read the loop itself to see how many processes it serves on
+ * one tick and whether it ever pages anything out.
  */
 
 void pageit(Pentry q[MAXPROCESSES]) {

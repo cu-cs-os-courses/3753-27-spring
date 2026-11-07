@@ -798,8 +798,7 @@ int main(int argc, char **argv) {
   if (errors || help) {
     fprintf(stderr, "%s usage: %s \n", argv[0], argv[0]);
     fprintf(stderr, "  -all       log everything\n");
-    fprintf(stderr, "  -load      log loading of processes\n");
-    fprintf(stderr, "  -unload    log unloading of processes\n");
+    fprintf(stderr, "  -load      log loading and unloading of processes\n");
     fprintf(stderr, "  -branch    log program branches\n");
     fprintf(stderr, "  -page      log page in and out\n");
     fprintf(stderr, "  -seed 512  set random seed to 512\n");

@@ -1,14 +1,14 @@
-/* Basecamp 4, Part 1 — watch pages materialize.
+/* Basecamp 4, Part 1 — watch pages arrive.
  *
  * malloc a 64 MiB region, then measure what the kernel actually did:
- * resident set size (VmRSS) and minor page faults, before and after
- * touching one byte in every page. Print exactly three lines:
+ * resident set size (VmRSS) and page faults, before and after writing
+ * one byte into every page. Print exactly three lines:
  *
  *   RSS_KB_BEFORE=<n>
  *   RSS_KB_AFTER=<n>
- *   MINFLT_DELTA=<n>
+ *   FAULT_DELTA=<n>
  *
- * Everything you need is in /proc/self — lab-0 territory.
+ * Everything you need is in /proc/self.
  *
  * Verify locally with:  make check LAB=04-virtual-memory
  */
@@ -26,11 +26,12 @@ static long rss_kb(void)
     return -1;
 }
 
-/* This process's cumulative minor-fault count: field 10 of
- * /proc/self/stat. (Field 2, the comm, can contain spaces in general —
- * for THIS program it doesn't, so whitespace splitting is fine.)
+/* This process's page faults since it started: field 10 plus field 12
+ * of /proc/self/stat. Fields are numbered from 1, and the PID is field 1.
+ * (Field 2, the comm, can contain spaces in general — for THIS program
+ * it doesn't, so whitespace splitting is fine.)
  * Return -1 on failure. */
-static long minflt(void)
+static long faults(void)
 {
     /* TODO */
     return -1;
@@ -45,15 +46,15 @@ int main(void)
     }
 
     long rss0 = rss_kb();
-    long flt0 = minflt();
+    long flt0 = faults();
     printf("RSS_KB_BEFORE=%ld\n", rss0);
 
-    /* TODO: touch one byte in every PAGE-sized chunk of region. */
+    /* TODO: write one byte into every PAGE-sized chunk of region. */
 
     long rss1 = rss_kb();
-    long flt1 = minflt();
+    long flt1 = faults();
     printf("RSS_KB_AFTER=%ld\n", rss1);
-    printf("MINFLT_DELTA=%ld\n", flt1 - flt0);
+    printf("FAULT_DELTA=%ld\n", flt1 - flt0);
 
     free(region);
     return 0;
