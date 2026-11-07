@@ -2,29 +2,33 @@
 
 ## 1. The geometry of nice
 
-Your measured `fairshare.sh 0 10 15` ratio, vs. the weight-table
-prediction 1024/110 ≈ 9.3: how close did you land? The table makes each
-nice level a factor of ~1.25 — why geometric rather than linear? (What
-would "nice +10" mean under a linear table if the system already had
-100 runnable tasks?)
+Compare your measured `fairshare.sh 0 10 15` ratio with the prediction
+1024/110 ≈ 9.3 from the weight table in L07 §3.4. How close did you land?
+Then predict, from the same table, the ratios for `fairshare.sh 0 5 15`
+and `fairshare.sh 10 15 15`, and measure both. Why are those two ratios
+nearly equal? What would a table that subtracts the same amount of weight
+at every nice step predict for them instead?
 
-*(your answer, with your measured number)*
+*(your answer, with your measured numbers)*
 
-## 2. CFS vs EEVDF, against your own data
+## 2. vruntime and the measured share
 
-Lecture taught CFS; your 6.6 kernel runs EEVDF inside the same fair
-class. Which things you measured in this lab are identical under both —
-cite `se.load.weight` and `se.vruntime` from `/proc/<pid>/sched` — and
-what did EEVDF actually replace? Why does your measured 0-vs-10 ratio
-not depend on which of the two is running?
+Start a nice 0 spinner and a nice 10 spinner on CPU 0 as in Step 2. Read
+`se.vruntime` from `/proc/<pid>/sched` and utime from `/proc/<pid>/stat`
+for both, wait 10 seconds, and read them again. Quote how much each value
+grew. One spinner ran about nine times as long as the other, yet the two
+vruntimes grew by about the same amount. Use the formula in L07 §3.4 to
+show why, and explain how the rule of running the task with the smallest
+vruntime produces the ratio your `fairshare.sh` measured.
 
-*(your answer)*
+*(your answer, with your measured numbers)*
 
-## 3. The safety valve
+## 3. Policy beats weight
 
-The FIFO-50 spinner did not get 100%: the normal task kept a small,
-round share. Which `/proc/sys/kernel/` setting is responsible (name it,
-quote its value), and why does the kernel refuse to hand real-time
-tasks the whole CPU?
+In Step 5 a SCHED_FIFO spinner and a normal spinner shared CPU 0. Quote
+the utime growth of each and the normal spinner's share. Use L07 §4.3 to
+explain that share. Would starting the normal spinner at nice −20 have
+changed it? Why or why not? Your shell kept working the whole time. Use
+L07 §5.1 and §5.2 to explain why.
 
-*(your answer)*
+*(your answer, with your measured numbers)*

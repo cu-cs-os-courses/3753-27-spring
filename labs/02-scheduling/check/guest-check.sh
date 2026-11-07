@@ -4,8 +4,9 @@
 # Prints one "PASS <name>" or "FAIL <name>" line per check; the harness
 # (scripts/check-lab.sh) counts FAIL lines and requires a CHECK-EXIT marker.
 #
-# Discipline: every experiment pins its spinners to CPU 0; this script
-# stays unpinned (CPU 1 is free), so nothing here can be starved.
+# Discipline: every experiment pins its spinners to CPU 0. Before Part 3
+# starts a SCHED_FIFO spinner, this script pins itself to CPU 1, so the
+# real-time spinner can never starve the checker.
 SUBMIT="${1:-/share/submit}"
 
 r() { local name="$1"; shift; if "$@" >/dev/null 2>&1; then echo "PASS $name"; else echo "FAIL $name"; fi }
@@ -47,14 +48,14 @@ r uses-proc       sh -c "printf '%s' \"\$1\" | grep -q /proc" _ "$code"
 r spin-compiles   gcc -Wall -Werror -O2 -o /tmp/spin "$SUBMIT/spin.c"
 if [ ! -x /tmp/spin ]; then
     for c in spin-pegs-cpu spin-state-R preemption-visible \
-             fair-format fair-equal fair-nice10 fifo-throttle; do
+             fair-format fair-equal fair-nice10 fifo-starves; do
         echo "FAIL $c"
     done
     exit 0
 fi
 
-# Pegs its CPU: pinned alone on CPU 0, utime (USER_HZ=100) over 5 s
-# should be ~500 ticks; demand at least 300.
+# Pegs its CPU: pinned alone on CPU 0, utime (hundredths of a second)
+# over 5 s should be ~500; demand at least 300.
 taskset -c 0 /tmp/spin & SP=$!; disown
 sleep 1
 u0="$(awk '{print $14}' "/proc/$SP/stat" 2>/dev/null)"
@@ -91,17 +92,18 @@ ratio="${out##*RATIO=}"
 r fair-nice10     awk -v x="$ratio" 'BEGIN{exit !(x >= 6.0 && x <= 13.0)}'
 
 # --- Part 3: policy beats weight (checker-driven) ---
+# A SCHED_FIFO task outranks every normal task, so on a shared CPU the
+# normal spinner gets (almost) nothing. The checker moves to CPU 1 first.
+taskset -pc 1 $$ >/dev/null
 taskset -c 0 /tmp/spin & N=$!; disown
 taskset -c 0 chrt -f 50 /tmp/spin & F=$!; disown
-sleep 2
+sleep 1
 n0="$(awk '{print $14}' "/proc/$N/stat" 2>/dev/null)"
 f0="$(awk '{print $14}' "/proc/$F/stat" 2>/dev/null)"
-sleep 10
+sleep 5
 n1="$(awk '{print $14}' "/proc/$N/stat" 2>/dev/null)"
 f1="$(awk '{print $14}' "/proc/$F/stat" 2>/dev/null)"
 killall_spin
-# RT throttling gives the normal task ~5%; accept 2-10%.
-r fifo-throttle   awk -v n=$((n1 - n0)) -v f=$((f1 - f0)) \
-                      'BEGIN{s = n / (n + f + 0.001); exit !(s >= 0.02 && s <= 0.10)}'
+r fifo-starves    test $((n1 - n0)) -le 2 -a $((f1 - f0)) -ge 300
 
 exit 0
