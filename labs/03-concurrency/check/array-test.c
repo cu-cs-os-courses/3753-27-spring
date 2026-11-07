@@ -14,20 +14,35 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <sys/resource.h>
+#include <time.h>
 #include "array.h"
 
 static array arr;
 
-static volatile int flag;
+/* flag and got_item are shared between main and one helper thread, so
+ * both are read and written only while flaglock is held. */
+static pthread_mutex_t flaglock = PTHREAD_MUTEX_INITIALIZER;
+static int flag;
 static char *got_item;
+
+static int flag_now(void)
+{
+    pthread_mutex_lock(&flaglock);
+    int f = flag;
+    pthread_mutex_unlock(&flaglock);
+    return f;
+}
 
 static void *consumer_one(void *arg)
 {
     (void)arg;
     char *s = NULL;
-    if (array_get(&arr, &s) == 0)
+    int ok = array_get(&arr, &s) == 0;
+    pthread_mutex_lock(&flaglock);
+    if (ok)
         got_item = s;
     flag = 1;
+    pthread_mutex_unlock(&flaglock);
     return NULL;
 }
 
@@ -35,7 +50,9 @@ static void *producer_one(void *arg)
 {
     (void)arg;
     array_put(&arr, (char *)"ninth");
+    pthread_mutex_lock(&flaglock);
     flag = 1;
+    pthread_mutex_unlock(&flaglock);
     return NULL;
 }
 
@@ -82,6 +99,16 @@ static void *consumer(void *arg)
     return NULL;
 }
 
+/* Wait up to two seconds for the helper thread to set flag. A missing
+ * signal leaves it blocked forever, so we report that instead of joining. */
+static int woke(void)
+{
+    struct timespec ts = {0, 10 * 1000 * 1000};
+    for (int i = 0; i < 200 && !flag_now(); i++)
+        nanosleep(&ts, NULL);
+    return flag_now();
+}
+
 static int cmpstr(const void *a, const void *b)
 {
     return strcmp(*(char *const *)a, *(char *const *)b);
@@ -119,10 +146,14 @@ int main(int argc, char *argv[])
         pthread_create(&t, NULL, consumer_one, NULL);
         sleep(1); /* consumer must still be blocked, burning ~no CPU */
         double waited = cpu_seconds() - c0;
-        if (flag) { puts("FAIL returned-early"); return 1; }
+        if (flag_now()) { puts("FAIL returned-early"); return 1; }
         if (array_put(&arr, (char *)"wake") != 0) { puts("FAIL put"); return 1; }
+        if (!woke()) { puts("FAIL never-woke"); return 1; }
         pthread_join(t, NULL);
-        if (!flag || !got_item || strcmp(got_item, "wake") != 0) {
+        pthread_mutex_lock(&flaglock);
+        char *got = got_item;
+        pthread_mutex_unlock(&flaglock);
+        if (!got || strcmp(got, "wake") != 0) {
             puts("FAIL wrong-item");
             return 1;
         }
@@ -144,10 +175,10 @@ int main(int argc, char *argv[])
         flag = 0;
         pthread_create(&t, NULL, producer_one, NULL);
         sleep(1); /* the 9th put must still be blocked */
-        if (flag) { puts("FAIL not-blocked"); return 1; }
+        if (flag_now()) { puts("FAIL not-blocked"); return 1; }
         if (array_get(&arr, &out) != 0) { puts("FAIL get"); return 1; }
+        if (!woke()) { puts("FAIL never-woke"); return 1; }
         pthread_join(t, NULL);
-        if (!flag) { puts("FAIL never-woke"); return 1; }
         array_free(&arr);
         puts("OK blocks-full");
         return 0;
