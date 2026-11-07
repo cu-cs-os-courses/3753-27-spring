@@ -34,17 +34,17 @@ header comments of its `submit/` files. Each lab directory contains:
 - `submit/` — the files you edit and push; this is your submission
 - `check/` — the checks, which run inside the VM
 
-## Checking your work
+## Reporting a bug
 
-```sh
-make check LAB=00-getting-started
-```
+If you find a bug in a lab, a check, or the VM environment, open an issue
+in this repository at
+<https://github.com/cu-cs-os-courses/3753-27-spring/issues>. Say which lab
+and step, what you ran, what you expected, and what you saw. Paste the
+exact command and its output.
 
-This boots the VM headless, runs the lab's checks against your `submit/`
-directory inside it, and prints PASS/FAIL per item. Grading re-runs the
-**same checks from the instructor's copy** against your `submit/` — so a
-local pass is a grading pass, and editing `check/` in your own repo does
-nothing.
+This repository is public. Therefore, never paste your own solution code
+into an issue. Questions about your own work go to office hours or
+recitation.
 
 ## Repository layout
 
