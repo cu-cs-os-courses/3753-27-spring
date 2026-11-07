@@ -29,7 +29,7 @@ ARGS=(
     -m "$VM_MEM" -smp "$VM_SMP"
     -kernel "$BZIMAGE"
     -drive "file=$ROOTFS,if=virtio,format=raw"
-    -append "root=/dev/vda rw console=ttyS0 nokaslr"
+    -append "root=/dev/vda rw console=ttyS0 nokaslr transparent_hugepage=never sysctl.kernel.sched_rt_runtime_us=-1"
     -device virtio-rng-pci
     -netdev "user,id=n0,hostfwd=tcp:127.0.0.1:${SSH_FWD_PORT}-:22"
     -device virtio-net-pci,netdev=n0
