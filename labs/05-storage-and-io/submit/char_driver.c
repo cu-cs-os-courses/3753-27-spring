@@ -84,9 +84,9 @@ static struct file_operations scd_fops = {
 
 static int __init scd_init(void)
 {
-    /* TODO: allocate the buffer (kzalloc — why not kmalloc? your
-     * report asks), register the device; on registration failure,
-     * free the buffer and return a negative errno. */
+    /* TODO: allocate the buffer (kzalloc), register the device; on
+     * registration failure, free the buffer and return a negative
+     * errno. */
 
     /* The three casts below only keep the UNFILLED skeleton building
      * under the kernel's -Werror (unused-variable). Delete them once

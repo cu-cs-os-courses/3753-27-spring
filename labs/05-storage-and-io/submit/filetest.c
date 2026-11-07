@@ -5,9 +5,8 @@
  * Usage: filetest <file>
  *
  * Open <file> read-write (create it if absent, mode 0644); if the open
- * fails: perror and exit 255 — the shell convention for "died badly",
- * which the checks assert. Then read commands from stdin, one per
- * line:
+ * fails: perror("open") and exit 255. Then read commands from stdin,
+ * one per line:
  *
  *   r <n>              read up to n bytes at the current offset
  *                      -> print exactly:  READ <k> <data>

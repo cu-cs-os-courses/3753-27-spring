@@ -37,7 +37,7 @@ printf 'obj-m := char_driver.o\n' > "$STAGE/Makefile"
 # result persists in the kernel-lens-cache volume.
 if ! docker run --rm --platform linux/amd64 -v kernel-lens-cache:/work/cache \
         "$DOCKER_IMAGE" test -f "/work/cache/linux-$KERNEL_VERSION/Module.symvers"; then
-    echo "==> one-time: indexing kernel exports (make modules — a few minutes, cached forever)"
+    echo "==> one-time: preparing the kernel tree, a few minutes"
     docker run --rm --platform linux/amd64 -v kernel-lens-cache:/work/cache \
         "$DOCKER_IMAGE" sh -c "cd /work/cache/linux-$KERNEL_VERSION && make -j\"\$(nproc)\" modules" || {
         echo "host-prep: kernel module index build failed"

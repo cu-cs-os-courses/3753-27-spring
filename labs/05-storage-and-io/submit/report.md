@@ -1,38 +1,32 @@
 # Basecamp 5 — Report
 
-## 1. Who owns the offset?
+## 1. Where the file position lives
 
-Open the same regular file in two terminals with your filetest and
-interleave `s`/`r` commands. Does each open get its own offset, or do
-they share one? Report the experiment and its result — then say where
-the offset actually lives (fd? file description? inode? process?).
+Run your Step 2 session `S` on a new regular file, then run filetest
+on the same file again with the single command `s 0 cur`. Using the
+per-process open-file table of L20 §0.3 and the open and read steps of
+L20 §1.1 and §1.2, explain why the second `r 10` printed `READ 0`, why
+`s 0 end` printed `OFFSET 3`, and why the second run starts at
+`OFFSET 0` although the first run ended at byte 3.
 
 *(your answer)*
 
 ## 2. Why copy_to_user
 
 In your driver, the user's buffer pointer arrives in `read`. Why can't
-you just `memcpy` into it — connect to camp 4's address spaces. And
-what happens (to your driver, and to the process) if the user hands
-you a garbage pointer?
+you just `memcpy` into it? Connect your answer to the address spaces
+of Lab04. And what happens (to your driver, and to the process) if
+the user hands you a garbage pointer?
 
 *(your answer)*
 
-## 3. The buffer's afterlife
+## 3. Where the paths diverge
 
-What happens to your device buffer's contents between `rmmod` and the
-next `insmod`, and why? What would `cat /dev/simple_char_driver` have
-shown before the first write if you had used `kmalloc` instead of
-`kzalloc` — and why is that a (mild) security story?
-
-*(your answer)*
-
-## 4. Where the paths diverge
-
-Your filetest drove an ext4 file and your driver with identical
-commands and identical results. Trace one `read` from the syscall
-down: where exactly does the kernel decide to call *your* `scd_read`
-instead of the filesystem's read path — what data structure makes the
-dispatch?
+Trace one `read` on `/tmp/plain` and one `read` on
+`/dev/simple_char_driver` through the models of L20 §1.2 and L17 §3.4
+and §4.1. At which step do the two paths part, and what does the
+kernel find in the file's inode that sends the second `read` to your
+`scd_read`? Support your answer with `ls -l` of both files and the
+line for 511 in `/proc/devices`.
 
 *(your answer)*
