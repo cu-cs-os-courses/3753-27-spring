@@ -8,17 +8,20 @@ single line of parent code makes it disappear?
 
 *(your answer)*
 
-## 2. What exec throws away
+## 2. What exec replaces
 
-Between `fork` and `exec` in `spawn.c`, the child briefly was a copy of
-its parent. What did `exec` replace, and name two things that survive
-exec. (`/proc/self/cmdline` before and after is a good probe.)
+Run `/tmp/spawn /bin/sleep 20` in the background, read
+`/proc/<pid>/status` of the sleeping child from your shell, and compare
+its `Name`, `Pid` and `PPid` lines with the `CHILD` line that spawn
+prints when the sleep ends. Using L03 §1.4, say what exec replaced and
+which values it kept, and why.
 
 *(your answer)*
 
 ## 3. The adoption
 
-Who adopted your orphan, and how did you verify it? Would the answer be
-the same on a system where PID 1 is not systemd?
+Who adopted your orphan, and which two observations from your own run
+show it? According to L03 §2.2, would the adopter change if PID 1 ran a
+program other than systemd?
 
 *(your answer)*
